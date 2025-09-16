@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:13
+    restart: always
+    env_file:
+      - /etc/umc_db.env
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - umc-network
+
+  odoo:
+    image: odoo:18.0
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+    volumes:
+      - odoo_filestore:/var/lib/odoo
+      - /home/sarah/umcemr/odoo-emr:/mnt/extra-addons:ro
+      - /etc/odoo_server.conf:/etc/odoo/odoo.conf:ro
+    command: ["odoo", "--config", "/etc/odoo/odoo.conf"]
+    restart: always
+    networks:
+      - umc-network
+
+volumes:
+  db_data:
+  odoo_filestore:
+
+networks:
+  umc-network:
+    external: true
