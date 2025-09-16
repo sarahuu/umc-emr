@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_patient_form_soap_form" model="ir.ui.view">
+        <field name="name">patient.form.soap.form</field>
+        <field name="model">patient.form.soap</field>
+        <field name="arch" type="xml">
+            <form string="SOAP Form">
+                <sheet>
+                    <group>
+                        <field name="patient_id" readonly="1"/>
+                    </group>
+                    <group string="subjective">
+                        <field name="subjective"/>
+                    </group>
+                    <group string="objective">
+                        <field name="objective"/>
+                    </group>
+                    <group string="assessment">
+                        <field name="assessment"/>
+                    </group>
+                    <group string="plan">
+                        <field name="plan"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_patient_form_soap" model="ir.actions.act_window">
+        <field name="name">SOAP Forms</field>
+        <field name="res_model">patient.form.soap</field>
+        <field name="view_mode">form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent">
+                Create and manage SOAP forms for patients.
+            </p>
+        </field>
+    </record>
+</odoo>

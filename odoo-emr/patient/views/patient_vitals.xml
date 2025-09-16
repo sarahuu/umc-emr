@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_patient_vitals_form" model="ir.ui.view">
+        <field name="name">patient.vitals.form</field>
+        <field name="model">patient.vitals</field>
+        <field name="arch" type="xml">
+            <form string="Patient Vitals">
+                <sheet>
+                    <group>
+                        <field name="temperature"/>
+                        <field name="blood_pressure"/>
+                        <field name="heart_rate"/>
+                        <field name="respiratory_rate"/>
+                        <field name="spo2"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_patient_vitals_graph" model="ir.ui.view">
+        <field name="name">patient.vitals.graph</field>
+        <field name="model">patient.vitals</field>
+        <field name="arch" type="xml">
+            <graph string="Vitals Graph" type="line">
+                <field name="recorded_label" type="row"/>
+            </graph>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_pharmacy_root" name="Pharmacy" sequence="10" web_icon="pharmacy,static/description/icon.png"/>
+    <menuitem id="menu_pharmacy_drugs" name="Drug Catalog" parent="menu_pharmacy_root" action="action_pharmacy_drug" sequence="20"/>
+    <menuitem id="menu_pharmacy_prescriptions" name="Prescriptions" parent="menu_pharmacy_root" action="action_prescription_line" sequence="30"/>
+</odoo>

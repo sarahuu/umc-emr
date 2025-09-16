@@ -1,0 +1,9 @@
+<!-- <?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="emr_location_outpatient" model="emr.locations">
+            <field name="name">Outpatient Clinic</field>
+            <field name="location_type">outpatient</field>
+        </record>
+    </data>
+</odoo> -->

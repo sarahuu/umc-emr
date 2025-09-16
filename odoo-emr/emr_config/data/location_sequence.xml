@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="location_seq_id" model="ir.sequence">
+        <field name="name">Location ID</field>
+        <field name="code">emr.locations</field>
+        <field name="prefix">LOC/</field>
+        <field name="number_increment">1</field>
+        <field name="padding">3</field>
+    </record>
+</odoo>

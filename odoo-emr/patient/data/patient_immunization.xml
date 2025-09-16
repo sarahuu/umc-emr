@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="seq_patient_immunization" model="ir.sequence">
+        <field name="name">Patient Immunization</field>
+        <field name="code">patient.immunization.line</field>
+        <field name="prefix">IMM/%(y)s/%(month)s/</field>
+        <field name="padding">6</field>
+        <field name="number_increment">1</field>
+    </record>
+</odoo>

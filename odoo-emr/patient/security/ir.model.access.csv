@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_patient_record_user,patient.record.user,model_patient_record,base.group_user,1,1,1,1
+access_patient_demographic_user,patient.demographic.user,model_patient_demographic,base.group_user,1,1,1,1
+access_patient_demographic_student_user,patient.demographic.student.user,model_patient_demographic_student,base.group_user,1,1,1,1
+access_patient_demographic_staff_user,patient.demographic.staff.user,model_patient_demographic_staff,base.group_user,1,1,1,1
+access_patient_record_patient,patient.record.patient,model_patient_record,emr_config.group_emr_patient,1,1,0,0
+access_patient_demographic_patient,patient.demographic.patient,model_patient_demographic,emr_config.group_emr_patient,1,1,0,0
+access_patient_demographic_student_patient,patient.demographic.student.patient,model_patient_demographic_student,emr_config.group_emr_patient,1,1,0,0
+access_patient_demographic_staff_patient,patient.demographic.staff.patient,model_patient_demographic_staff,emr_config.group_emr_patient,1,1,0,0
+access_patient_vitals_user,patient.vitals.user,model_patient_vitals,base.group_user,1,1,1,1
+access_patient_biometrics_user,patient.biometrics.user,model_patient_biometrics,base.group_user,1,1,1,1
+access_patient_conditions_user,patient.conditions.user,model_patient_conditions,base.group_user,1,1,1,1
+access_patient_allergies_user,patient.allergies.user,model_patient_allergies,base.group_user,1,1,1,1
+access_patient_immunization_user,patient.immunization.user,model_patient_immunization,base.group_user,1,1,1,1
+access_patient_immunization_line_user,patient.immunization.line.user,model_patient_immunization_line,base.group_user,1,1,1,1
+access_patient_form_user,patient.form.user,model_patient_form,base.group_user,1,1,1,1
+access_patient_forms_soap_user,patient.form.soap.user,model_patient_form_soap,base.group_user,1,1,1,1

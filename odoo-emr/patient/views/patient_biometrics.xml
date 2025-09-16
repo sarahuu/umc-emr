@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_patient_biometrics_form" model="ir.ui.view">
+        <field name="name">patient.biometrics.form</field>
+        <field name="model">patient.biometrics</field>
+        <field name="arch" type="xml">
+            <form string="Patient Biometrics">
+                <sheet>
+                    <group>
+                        <field name="weight"/>
+                        <field name="height"/>
+                        <field name="bmi"/>
+                        <field name="muac"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_patient_biometrics_graph" model="ir.ui.view">
+        <field name="name">patient.biometrics.graph</field>
+        <field name="model">patient.biometrics</field>
+        <field name="arch" type="xml">
+            <graph string="biometrics Graph" type="line">
+                <field name="recorded_label" type="row"/>
+            </graph>
+        </field>
+    </record>
+
+</odoo>

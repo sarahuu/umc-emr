@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_prescription_wizard_form" model="ir.ui.view">
+        <field name="name">prescription.order.wizard.form</field>
+        <field name="model">prescription.order.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Prescription">
+                <header>
+                    <button name="confirm_order" string="Confirm Order" type="object" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="cancel_prescription" string="Discontinue" type="object" class="oe_highlight" invisible="state != 'active'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,active,ended,cancelled" nolabel="1"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="drug_id" required="1" options="{'no_create': True}"/>
+                            <field name="dose"/>
+                            <field name="dose_unit"/>
+                        </group>
+                        <group>
+                            <field name="frequency"/>
+                            <field name="frequency_unit"/>
+                            <field name="duration"/>
+                            <field name="duration_unit"/>
+                            <field name="date_start"/>
+                            <field name="indication"/>
+                        </group>
+                    </group>
+                    <separator colspan="2" string="Dispensing Information"/>
+                    <group>
+                        <group>
+                            <field name="qty_to_dispense"/>
+                            <field name="qty_unit"/>
+                            <field name="dispensing_instructions"/>
+                        </group>
+                        <group>
+                            <field name="instructions" placeholder="Enter special instructions for the patient..." nolabel="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                
+                <footer>
+                    <button name="action_add_prescription" string="Add to Prescription" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+
+            </form>
+        </field>
+    </record>
+
+        <act_window id="action_prescription_wizard"
+                    name="Add Prescription Medication"
+                    res_model="prescription.order.wizard"
+                    view_mode="form"
+                    target="new"/>
+</odoo>

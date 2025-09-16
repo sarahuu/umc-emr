@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="patient_record_rule_patient_own" model="ir.rule">
+            <field name="name">Patient: Own Record Only</field>
+            <field name="model_id" ref="patient.model_patient_record"/>
+            <field name="groups" eval="[(4, ref('emr_config.group_emr_patient'))]"/>
+            <field name="domain_force">[('user_id', '=', user.id)]</field>
+        </record>
+    
+</odoo>

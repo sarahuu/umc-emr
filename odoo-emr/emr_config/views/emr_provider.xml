@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_emr_provider_list" model="ir.ui.view">
+        <field name="name">emr.provider.list</field>
+        <field name="model">emr.provider</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="specialty_ids" widget="many2many_tags"/>
+                <field name="active"/>
+
+            </list>
+        </field>
+    </record>
+    <record id="view_emr_provider_form" model="ir.ui.view">
+        <field name="name">emr.provider.form</field>
+        <field name="model">emr.provider</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                        <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;avatar_128&quot;}"/>
+                        <div class="oe_title mb24">
+                            <h1 style="min-height: unset; margin-bottom: 0;">
+                                <field options="{'line_breaks': False}" widget="text" class="text-break" name="name" default_focus="1" readonly="1"/>
+                            </h1>
+                        </div>
+                    <group>
+                        <field name="first_name"/>
+                        <field name="last_name"/>
+                        <field name="email"/>
+                        <field name="phone"/>
+                        <field name="user_id" context="{'show_email': True}" options="{'no_create': True}" readonly="1"/>
+                        <field name="specialty_ids" widget="many2many_tags"/>
+                        <field name="service_ids" widget="many2many_tags"/>
+                        <field name="license_number"/>
+                        <field name="about"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_emr_provider" model="ir.actions.act_window">
+        <field name="name">Healthcare Providers</field>
+        <field name="res_model">emr.provider</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create and manage healthcare providers for EMR.
+            </p>
+        </field>
+    </record>
+</odoo>

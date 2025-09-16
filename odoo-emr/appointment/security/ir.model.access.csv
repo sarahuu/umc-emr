@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_appointment_timeslot_emr_user,appointment.timeslot,model_appointment_timeslot,base.group_user,1,1,1,1
+access_appointment_available_slot_emr_user,appointment.available.slot,model_appointment_available_slot,base.group_user,1,1,1,1
+access_appointment_appointment_emr_user,appointment.appointment,model_appointment_appointment,base.group_user,1,1,1,1
+access_appointment_timeslot_emr_patient,appointment.timeslot.patient,model_appointment_timeslot,emr_config.group_emr_patient,1,1,1,1
+access_appointment_available_slot_emr_patient,appointment.available.slot.patient,model_appointment_available_slot,emr_config.group_emr_patient,1,1,1,1
+access_appointment_appointment_emr_patient,appointment.appointment.patient,model_appointment_appointment,emr_config.group_emr_patient,1,1,1,1
+access_appointment_visit_emr_user,appointment.visit,model_appointment_visit,base.group_user,1,1,1,1
+access_appointment_visit_note_emr_user,appointment.visit.note,model_appointment_visit_note,base.group_user,1,1,1,1
+access_appointment_visit_encounter_emr_user,appointment.visit.encounter,model_appointment_visit_encounter,base.group_user,1,1,1,1
+access_appointment_reschedule_wizard_emr_user,appointment.reschedule.wizard,model_appointment_reschedule_wizard,base.group_user,1,1,1,1

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_appointment_visit_list" model="ir.ui.view">
+        <field name="name">appointment.visit.list</field>
+        <field name="model">appointment.visit</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="app_visit_id"/>
+                <field name="patient_id"/>
+                <field name="location_id"/>
+                <field name="start_datetime"/>
+                <field name="end_datetime"/>
+                <field name="visit_type"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_appointment_visit_form" model="ir.ui.view">
+        <field name="name">appointment.visit.form</field>
+        <field name="model">appointment.visit</field>
+        <field name="arch" type="xml">
+            <form string="Appointment Visit">
+                <header>
+                    <button name="action_start" string="Start Visit" type="object" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_end" string="End Visit" type="object" class="btn-danger" invisible="state != 'active'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,active,ended" statusbar_colors='{"draft":"blue","active":"green","ended":"red"}'/>
+                </header>
+                <sheet>
+                    <div class="oe_title mb24">
+                        <field name="status" widget="radio" options="{'horizontal': true}" readonly="state != 'draft'"/>
+                        <h1 style="min-height: unset; margin-bottom: 0;">
+                            <field id="individual" options="{'line_breaks': False}" widget="text" class="text-break" name="app_visit_id" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="patient_id"/>
+                            <field name="appointment_id" invisible="status != 'new'"/>
+                            <field name="diagnosis_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="location_id" readonly="state != 'draft'"/>
+                            <field name="visit_type" readonly="state != 'draft'"/>
+                            <field name="punctuality" readonly="state != 'draft'"/>
+                            <field name="start_datetime" readonly="state != 'draft' or status == 'new'"/>
+                            <field name="end_datetime" readonly="state != 'draft' or status in ['new','ongoing']"/>
+                        </group>
+                    </group>
+                    <notebook invisible="state == 'draft'">
+                        <page string="Notes">
+                            <field name="visit_note_ids" mode="kanban" widget="kanban">
+                                <kanban class="o_kanban_small_column">
+                                    <field name="note"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div class="oe_kanban_global_click o_kanban_card">
+                                                <div class="o_kanban_details">
+                                                    <div class="fw-bold text-dark" style="margin-bottom: 8px; white-space: pre-line;">
+                                                        <field name="note"/>
+                                                    </div>
+                                                    <div class="text-muted" style="font-size: 12px;">
+                                                        <span>
+                                                            <i class="fa fa-calendar"></i>
+                                                            <field name="create_date" options="{'format': 'dd MMM yyyy HH:mm'}"/>
+                                                        </span>
+                                                        <br/>
+                                                        <span>
+                                                            <i class="fa fa-user"></i>
+                                                            <field name="recorded_by"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                        </page>
+                        <page string="Encounters">
+                            <field name="encounter_ids" mode="list">
+                                <list create="0" edit="0" options="{'no_open': True}">
+                                    <field name="visit_id" column_invisible="1"/>
+                                    <field name="create_date"/>
+                                    <field name="encounter_type_id"/>
+                                    <field name="form_type_id"/>
+                                    <field name="recorded_by"/>
+                                    <field name="encounter_record_id"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_appointment_visit_note_form" model="ir.ui.view">
+        <field name="name">appointment.visit.note.form</field>
+        <field name="model">appointment.visit.note</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <group>
+                        <field name="parent_visit_id" readonly="1"/>
+                        <field name="diagnosis_ids" widget="many2many_tags"/>
+                        <field name="note"/>
+                        <field name="image_id" widget="many2many_binary"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_appointment_visit" model="ir.actions.act_window">
+        <field name="name">Appointment Visits</field>
+        <field name="res_model">appointment.visit</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent">
+                Create and manage appointment available slots.
+            </p>
+        </field>
+    </record>
+    <record id="action_appointment_visit_note" model="ir.actions.act_window">
+        <field name="name">Appointment Visit Note</field>
+        <field name="res_model">appointment.visit.note</field>
+        <field name="view_mode">form</field>
+        <field name="context">{'default_parent_visit_id': active_id}</field>
+        <field name="view_id" ref="view_appointment_visit_note_form"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent">
+                Create and manage appointment visit notes.
+            </p>
+        </field>
+    </record>
+
+</odoo>

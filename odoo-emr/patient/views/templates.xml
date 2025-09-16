@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Reusable Vitals Display Template -->
+    <template id="vitals_display_template" name="Vitals Display Template">
+        <div class="mt-4">
+            <h4 class="mb-2">Vitals and Biometrics</h4>
+            <hr class="my-2"/>
+
+            <div class="row text-center">
+                <div class="col">
+                    <div class="text-muted small">Height</div>
+                    <div class="fw-bold">
+                        <field name="height"/><span class="text-muted small">cm</span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="text-muted small">Weight</div>
+                    <div class="fw-bold">
+                        <field name="weight"/><span class="text-muted small">kg</span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="text-muted small">Blood Pressure</div>
+                    <div class="fw-bold">
+                        <field name="blood_pressure"/><span class="text-muted small">mmHg</span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="text-muted small">Temperature</div>
+                    <div class="fw-bold">
+                        <field name="temperature"/><span class="text-muted small">°C</span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="text-muted small">Heart Rate</div>
+                    <div class="fw-bold">
+                        <field name="heart_rate"/><span class="text-muted small">bpm</span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="text-muted small">Resp. Rate</div>
+                    <div class="fw-bold">
+                        <field name="respiratory_rate"/><span class="text-muted small">breaths/min</span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="text-muted small">SpO₂(%)</div>
+                    <div class="fw-bold">
+                        <field name="spo2"/><span class="text-muted small">%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Vitals List Template -->
+    <template id="vitals_list_template" name="Vitals List Template">
+        <list>
+            <field name="recorded_at"/>
+            <field name="temperature"
+                decoration-warning="temperature > 37.5"
+                decoration-danger="temperature > 39 or temperature &lt; 35"/>
+            <field name="blood_pressure"/>
+            <field name="heart_rate"
+                decoration-warning="heart_rate &gt; 100 or heart_rate &lt; 60"
+                decoration-danger="heart_rate &gt; 120 or heart_rate &lt; 40"/>
+            <field name="respiratory_rate"
+                decoration-warning="respiratory_rate &gt; 20 or respiratory_rate &lt; 12"
+                decoration-danger="respiratory_rate &gt; 30 or respiratory_rate &lt; 8"/>
+            <field name="spo2"
+                decoration-warning="spo2 &lt; 95"
+                decoration-danger="spo2 &lt; 90"/>
+        </list>
+    </template>
+</odoo>

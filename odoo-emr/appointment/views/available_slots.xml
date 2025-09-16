@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_appointment_available_slot_list" model="ir.ui.view">
+        <field name="name">appointment.available.slot.list</field>
+        <field name="model">appointment.available.slot</field>
+        <field name="arch" type="xml">
+            <list create="0">
+                <field name="available_slot_id"/>
+                <field name="provider_id"/>
+                <field name="start_datetime"/>
+                <field name="duration"/>
+                <field name="service_type"/>
+                <field name="is_booked"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_appointment_available_slot_form" model="ir.ui.view">
+        <field name="name">appointment.available.slot.form</field>
+        <field name="model">appointment.available.slot</field>
+        <field name="arch" type="xml">
+            <form edit="0">
+                <sheet>
+                    <div class="oe_title mb24">
+                        <h1 style="min-height: unset; margin-bottom: 0;">
+                            <field id="individual" options="{'line_breaks': False}" widget="text" class="text-break" name="available_slot_id" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="provider_id"/>
+                            <field name="service_type"/>
+                            <field name="location_id"/>
+                        </group>
+                        <group>
+                            <field name="start_datetime"/>
+                            <field name="duration"/>
+                            <field name="is_booked"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_appointment_available_slot" model="ir.actions.act_window">
+        <field name="name">Available Slots</field>
+        <field name="res_model">appointment.available.slot</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent">
+                Create and manage appointment available slots.
+            </p>
+        </field>
+    </record>
+
+</odoo>

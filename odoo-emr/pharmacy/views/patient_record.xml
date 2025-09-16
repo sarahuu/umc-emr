@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_patient_record_form" model="ir.ui.view">
+            <field name="name">patient.record.form.inherit</field>
+            <field name="model">patient.record</field>
+            <field name="inherit_id" ref="patient.view_patient_record_form"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button class="oe_stat_button" type="object" icon="fa-medkit" name="action_open_prescription_orders">
+                    <field name="prescription_order_count" widget="statinfo" string="Prescription Orders"/>
+                    </button>
+                </div>
+                <sheet position="inside">
+                    <field name="prescription_order_ids" invisible="1"/>
+                </sheet>
+            </field>
+    </record>
+</odoo>

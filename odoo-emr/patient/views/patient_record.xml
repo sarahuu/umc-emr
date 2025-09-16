@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_patient_record_list" model="ir.ui.view">
+        <field name="name">patient.record.list</field>
+        <field name="model">patient.record</field>
+        <field name="arch" type="xml">
+            <list string="Patients" sample="1">
+                <field name="patient_id" string="Identifier"/>
+                <field name="name" string="Name"/>
+                <field name="gender" string="Gender"/>
+                <field name="age" string="Age"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_patient_record_form" model="ir.ui.view">
+        <field name="name">patient.record.form</field>
+        <field name="model">patient.record</field>
+        <field name="arch" type="xml"> 
+            <form string="Patient Record">
+                <sheet> 
+                    <div class="oe_button_box" name="button_box"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                        <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;avatar_128&quot;}"/>
+                        <div class="oe_title mb24">
+                            <field name="member_type" widget="radio" options="{'horizontal': true}"/>
+                            <h1 style="min-height: unset; margin-bottom: 0;">
+                                <field id="individual" options="{'line_breaks': False}" widget="text" class="text-break" name="name" default_focus="1" readonly="1"/>
+                            </h1>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="d-flex align-items-center">
+                                    <i class="fa fa-venus-mars text-muted me-1" title="Gender"/> 
+                                    <field name="gender" class="me-2" readonly="1"/>
+                                </div>
+
+                                <div class="d-flex align-items-center">
+                                    <i class="fa fa-birthday-cake text-muted me-1" title="Age"/>
+                                    <field name="age" class="me-2" readonly="1"/>
+                                </div>
+
+                                <div class="d-flex align-items-center">
+                                    <i class="fa fa-id-badge text-muted me-1" title="Patient ID"/>
+                                    <field name="patient_id" readonly="1"/>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <h4 class="mb-2">Vitals and Biometrics</h4>
+                                <hr class="my-2"/>
+
+                                <div class="row text-center">
+                                    <div class="col">
+                                        <div class="text-muted small">Height</div>
+                                        <div class="fw-bold">
+                                            <field name="height"/><span class="text-muted small">cm</span>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="text-muted small">Weight</div>
+                                        <div class="fw-bold">
+                                            <field name="weight"/><span class="text-muted small">kg</span>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="text-muted small">Blood Pressure</div>
+                                        <div class="fw-bold">
+                                            <field name="blood_pressure"/><span class="text-muted small">mmHg</span>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="text-muted small">Temperature</div>
+                                        <div class="fw-bold">
+                                            <field name="temperature"/><span class="text-muted small">°C</span>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="text-muted small">Heart Rate</div>
+                                        <div class="fw-bold">
+                                            <field name="heart_rate"/><span class="text-muted small">bpm</span>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="text-muted small">Resp. Rate</div>
+                                        <div class="fw-bold">
+                                            <field name="respiratory_rate"/><span class="text-muted small">breaths/min</span>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="text-muted small">SpO₂(%)</div>
+                                        <div class="fw-bold">
+                                            <field name="spo2"/><span class="text-muted small">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <notebook>
+                        <page string="Demographics">
+                            <separator string="Basic Information" colspan="2"/>
+                            <group>
+                                <group>
+                                    <field name="first_name" required="1"/>
+                                    <field name="last_name" required="1"/>
+                                    <field name="other_name"/>
+                                </group>
+                                <group>
+                                    <field name="gender" required="1"/>
+                                    <field name="date_of_birth" required="1"/>
+                                    <field name="age"/>
+                                </group>
+                            </group>
+                            <separator string="Contact Information" colspan="2"/>
+                                <group>
+                                    <group>
+                                        <field name="title" options='{"no_open": True}' placeholder="e.g. Mister"/>
+                                        <field name="phone" widget="phone"/>
+                                        <field name="mobile" widget="phone"/>
+                                        <field name="email" widget="email" context="{'gravatar_image': True}" required="1"/>
+                                    </group>
+                                    <group>
+                                        <span class="o_form_label o_td_label o_address_type" name="address_name">
+                                            <span>Address</span>
+                                        </span>
+                                        <div class="o_address_format">
+                                            <field name="street" placeholder="Street..." class="o_address_street"/>
+                                            <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                            <field name="city" placeholder="City" class="o_address_city"/>
+                                            <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_quick_create': True}"
+                                                context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"/>
+                                            <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                            <div name="partner_address_country" class="d-flex justify-content-between">
+                                                <field name="country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}'/>
+                                            </div>
+                                        </div>
+                                    </group>
+                                </group>
+                            <separator string="Relationships" colspan="2"/>
+                            <group>
+                                <group>
+                                    <field name="marital_status"/>
+                                </group>
+                                <group >
+                                    <field name="next_of_kin_name"/>
+                                    <field name="next_of_kin_relationship"/>
+                                    <field name="next_of_kin_phone"/>
+                                </group>
+                            </group>
+                            <separator string="Student Information" colspan="2" invisible="member_type != 'student'"/>
+                            <separator string="Staff Information" colspan="2" invisible="member_type != 'staff'"/>
+                            <group invisible="member_type != 'student'">
+                                <group>
+                                    <field name="level" required="member_type == 'student'"/>
+                                    <field name="matric_number" required="member_type == 'student'"/>
+                                </group>
+                                <group>
+                                    <field name="faculty_id"/>
+                                    <field name="department_id"/>
+                                </group>
+                            </group>
+                            <group invisible="member_type != 'staff'">
+                                <field name="staff_number"/>
+                                <field name="employment_type"/>
+                                <field name="designation"/>
+                            </group>
+                        </page>
+                        <page string="Vitals">
+                            <button name="action_view_vitals_graph"
+                                type="object"
+                                string="Vitals Chart"
+                                class="btn-secondary"
+                                icon="fa-line-chart"/>
+                            <field name="vitals_ids" widget="one2many_list" >
+                                <list>
+                                    <field name="recorded_at"/>
+                                    <field name="temperature"
+                                        decoration-warning="temperature > 37.5"
+                                        decoration-danger="temperature > 39 or temperature &lt; 35"/>
+                                    <field name="blood_pressure"/>
+                                        <!-- decoration-warning="int(blood_pressure.split('/')[0]) > 140 or int(blood_pressure.split('/')[1]) > 90"
+                                        decoration-danger="int(blood_pressure.split('/')[0]) > 180 or int(blood_pressure.split('/')[1]) > 120"/> -->
+                                    <field name="heart_rate"
+                                        decoration-warning="heart_rate &gt; 100 or heart_rate &lt; 60"
+                                        decoration-danger="heart_rate &gt; 120 or heart_rate &lt; 40"/>
+                                    <field name="respiratory_rate"
+                                        decoration-warning="respiratory_rate &gt; 20 or respiratory_rate &lt; 12"
+                                        decoration-danger="respiratory_rate &gt; 30 or respiratory_rate &lt; 8"/>
+                                    <field name="spo2"
+                                        decoration-warning="spo2 &lt; 95"
+                                        decoration-danger="spo2 &lt; 90"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Biometrics">
+                            <button name="action_view_biometrics_graph"
+                                type="object"
+                                string="Biometrics Chart"
+                                class="btn-secondary"
+                                icon="fa-line-chart"/>
+                            <field name="biometrics_ids" widget="one2many_list" >
+                                <list>
+                                    <field name="recorded_at"/>
+                                    <field name="height"/>
+                                    <field name="weight"/>
+                                    <field name="bmi"/>
+                                    <field name="muac"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Conditions">
+                            <field name="conditions_ids" widget="one2many_list" >
+                                <list>
+                                    <field name="condition_id"/>
+                                    <field name="onset_date"/>
+                                    <field name="clinical_status"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Allergies">
+                            <field name="allergies_ids" widget="one2many_list" >
+                                <list>
+                                    <field name="allergen_id"/>
+                                    <field name="reaction_ids" widget="many2many_tags"/>
+                                    <field name="severity"/>
+                                    <field name="comments"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Immunization">
+                            <field name="immunization_ids" widget="one2many_list">
+                                <list editable="bottom">
+                                    <field name="immunization_id"/>
+                                    <field name="last_dose_taken"/>
+                                    <button name="action_view_child_immunizations"
+                                        type="object"
+                                        string="View/Add Doses"
+                                        icon="fa-eye"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Forms">
+                            <field name="form_ids" widget="one2many_list">
+                                <list editable="bottom">
+                                    <field name="create_date"/>
+                                    <field name="form_type_id"/>
+                                    <field name="created_by"/>
+                                    <field name="record_ref" readonly="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    <record id="action_patient" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="res_model">patient.record</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_patient_record_list"/>
+        <field name="help" type="html">
+            <p class="o_view_nocntent_smiling_face">
+                Create and manage patient records.
+            </p>
+        </field>
+    </record>
+</odoo>
+

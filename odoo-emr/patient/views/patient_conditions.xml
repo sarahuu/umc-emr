@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_patient_condition_form" model="ir.ui.view">
+        <field name="name">patient.conditions.form</field>
+        <field name="model">patient.conditions</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="condition_id"/>
+                        <field name="onset_date"/>
+                        <field name="clinical_status"/>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

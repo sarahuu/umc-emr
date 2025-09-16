@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_lab_test_type_form" model="ir.ui.view">
+        <field name="name">lab.test.type.form</field>
+        <field name="model">lab.test.type</field>
+        <field name="arch" type="xml">
+            <form string="Lab Test Type">
+                <sheet>
+                    <group>
+                        <field name="emr_name"/>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="description"/>
+                    </group>
+                    <notebook>
+                        <page string="Parameters">
+                            <field name="parameter_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="unit"/>
+                                    <field name="parameter_type"/>
+                                    <field name="selection_options" invisible="parameter_type !='select'"/>
+                                    <field name="reference_min" invisible="parameter_type !='numeric'"/>
+                                    <field name="reference_max" invisible="parameter_type !='numeric'"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_lab_test_type_list" model="ir.ui.view">
+        <field name="name">lab.test.type.list</field>
+        <field name="model">lab.test.type</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="emr_name"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="description"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_lab_test_type" model="ir.actions.act_window">
+        <field name="name">Lab Test Types</field>
+        <field name="res_model">lab.test.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first lab test type
+            </p>
+        </field>
+    </record>
+
+</odoo>

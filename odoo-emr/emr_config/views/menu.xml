@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Root Config Menu -->
+    <menuitem id="menu_emr_config" 
+              name="Configuration" 
+              sequence="10" 
+              web_icon="emr_config,static/description/icon.png"/>
+
+    <!-- Academic Configuration -->
+    <menuitem id="menu_emr_academic_config" 
+              name="Academic Configuration" 
+              parent="menu_emr_config" 
+              sequence="1"/>
+
+    <menuitem id="menu_university_faculties" 
+              name="Faculties" 
+              parent="menu_emr_academic_config" 
+              action="action_university_faculties" 
+              sequence="1"/>
+    <menuitem id="menu_university_departments" 
+              name="Departments" 
+              parent="menu_emr_academic_config" 
+              action="action_university_departments" 
+              sequence="2"/>
+
+    <!-- Medical Configuration -->
+    <menuitem id="menu_emr_medical_config" 
+              name="Medical Configuration" 
+              parent="menu_emr_config" 
+              sequence="2"/>
+
+    <!-- Submenu: Locations -->
+    <menuitem id="menu_emr_locations_root" 
+              name="Locations" 
+              parent="menu_emr_medical_config" 
+              sequence="1"/>
+    <menuitem id="menu_emr_locations" 
+              name="All Locations" 
+              parent="menu_emr_locations_root" 
+              action="action_emr_locations" 
+              sequence="1"/>
+
+    <!-- Submenu: Medical Dictionaries -->
+    <menuitem id="menu_emr_dictionaries_root" 
+              name="Medical Dictionaries" 
+              parent="menu_emr_medical_config" 
+              sequence="2"/>
+
+    <menuitem id="menu_emr_medical_conditions" 
+              name="Conditions" 
+              parent="menu_emr_dictionaries_root" 
+              action="action_medical_conditions" 
+              sequence="1"/>
+    <menuitem id="menu_emr_medical_allergens" 
+              name="Allergens" 
+              parent="menu_emr_dictionaries_root" 
+              action="action_medical_allergens" 
+              sequence="2"/>
+    <menuitem id="menu_emr_medical_reactions" 
+              name="Reactions" 
+              parent="menu_emr_dictionaries_root" 
+              action="action_medical_reactions" 
+              sequence="3"/>
+    <menuitem id="menu_emr_medical_immunization" 
+              name="Immunization" 
+              parent="menu_emr_dictionaries_root" 
+              action="action_medical_immunization" 
+              sequence="4"/>
+
+    <!-- Submenu: Providers -->
+    <menuitem id="menu_emr_providers_root" 
+              name="Providers and Specialties" 
+              parent="menu_emr_medical_config" 
+              sequence="3"/>
+    <menuitem id="menu_emr_provider_specialties" 
+              name="Specialties" 
+              parent="menu_emr_providers_root" 
+              action="action_provider_specialty" 
+              sequence="1"/>
+    <menuitem id="menu_emr_providers" 
+              name="Providers" 
+              parent="menu_emr_providers_root" 
+              action="action_emr_provider" 
+              sequence="2"/>
+    <menuitem id="menu_medical_service"
+              name="Medical Service Types"
+              parent="menu_emr_providers_root"
+              action="action_medical_service"
+              sequence="3"/>
+
+    <!-- Submenu: Encounters -->
+    <menuitem id="menu_emr_encounters_root" 
+              name="Encounters and Forms" 
+              parent="menu_emr_medical_config" 
+              sequence="4"/>
+    <menuitem id="menu_emr_encounter_types" 
+              name="Encounter Types" 
+              parent="menu_emr_encounters_root" 
+              action="action_emr_encounter_type" 
+              sequence="1"/>
+    <menuitem id="menu_emr_model_encounter_types" 
+              name="Model Encounter Types" 
+              parent="menu_emr_encounters_root" 
+              action="action_emr_model_encounter_type" 
+              sequence="2"/>
+    <menuitem id="menu_emr_form_types" 
+              name="Form Types" 
+              parent="menu_emr_encounters_root" 
+              action="action_emr_form_type" 
+              sequence="3"/>
+
+</odoo>

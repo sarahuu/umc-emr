@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_patient_immunization_line_list" model="ir.ui.view">
+        <field name="name">patient.immunization.line.list</field>
+        <field name="model">patient.immunization.line</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="parent_id" column_invisible="1"/>
+                <field name="vaccination_date"/>
+                <field name="immunization_id" column_invisible="1"/>
+                <field name="dose_number"/>
+                <field name="manufacturer"/>
+                <field name="lot_number"/>
+                <field name="expiration_date"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_patient_immunization_line" model="ir.actions.act_window">
+        <field name="name">Patient Immunization Line</field>
+        <field name="res_model">patient.immunization.line</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('parent_id', '=', active_id)]</field>
+        <field name="context">{'default_parent_id': active_id}</field>
+    </record>
+</odoo>

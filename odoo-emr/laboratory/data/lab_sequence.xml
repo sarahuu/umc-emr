@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="seq_lab_order" model="ir.sequence">
+        <field name="name">Lab Order</field>
+        <field name="code">lab.order</field>
+        <field name="prefix">LAB/%(year)s/</field>
+        <field name="padding">6</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="seq_lab_order_line" model="ir.sequence">
+        <field name="name">Lab Order Line</field>
+        <field name="code">lab.order.line</field>
+        <field name="prefix">LABLINE/%(year)s/</field>
+        <field name="padding">6</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="seq_lab_result" model="ir.sequence">
+        <field name="name">Lab Result</field>
+        <field name="code">lab.result</field>
+        <field name="prefix">LABRESULT/%(year)s/</field>
+        <field name="padding">6</field>
+        <field name="number_increment">1</field>
+    </record>
+</odoo>

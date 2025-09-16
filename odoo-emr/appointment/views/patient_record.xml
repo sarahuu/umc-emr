@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_patient_record_form" model="ir.ui.view">
+            <field name="name">patient.record.form.inherit</field>
+            <field name="model">patient.record</field>
+            <field name="inherit_id" ref="patient.view_patient_record_form"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button class="oe_stat_button" type="object" icon="fa-hospital-o" name="action_open_visits">
+                    <field name="visit_count" widget="statinfo" string="Visits"/>
+                    </button>
+                </div>
+                <sheet position="inside">
+                    <field name="visit_ids" invisible="1"/>
+                </sheet>
+                <xpath expr="//field[@name='member_type']" position="after">
+                    <span class="badge rounded-pill ms-2" style="background-color:#e6f0ff; color:#0056b3; border-radius:15px; padding:2px 8px; font-weight:500;"
+                        invisible="active_visit != True">
+                        Active Visit
+                    </span>
+                </xpath>
+            </field>
+    </record>
+</odoo>

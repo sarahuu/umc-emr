@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_emr_encounter_type_list" model="ir.ui.view">
+        <field name="name">emr.encounter.type.list</field>
+        <field name="model">emr.encounter.type</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="encounter_name"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_emr_model_encounter_type_list" model="ir.ui.view">
+        <field name="name">emr.model.encounter.type.list</field>
+        <field name="model">emr.model.encounter.type</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="model_id"/>
+                <field name="encounter_type_id"/>
+                <field name="form_type_id"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_emr_form_type_list" model="ir.ui.view">
+        <field name="name">emr.form.type.list</field>
+        <field name="model">emr.form.type</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="form_name"/>
+                <field name="model_id"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_emr_encounter_type" model="ir.actions.act_window">
+        <field name="name">EMR Encounter Types</field>
+        <field name="res_model">emr.encounter.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent">
+                Create and manage EMR encounter types.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_emr_model_encounter_type" model="ir.actions.act_window">
+        <field name="name">EMR Model Encounter Types</field>
+        <field name="res_model">emr.model.encounter.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent">
+                Create and manage EMR model encounter types.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_emr_form_type" model="ir.actions.act_window">
+        <field name="name">EMR Form Types</field>
+        <field name="res_model">emr.form.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent">
+                Create and manage EMR form types.
+            </p>
+        </field>
+    </record>
+</odoo>

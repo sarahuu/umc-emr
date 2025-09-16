@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- list (List) View -->
+    <record id="view_medical_appointment_list" model="ir.ui.view">
+        <field name="name">appointment.appointment.list</field>
+        <field name="model">appointment.appointment</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="appointment_id"/>
+                <field name="patient_name"/>
+                <field name="patient_id"/>
+                <field name="provider_id"/>
+                <field name="location_id"/>
+                <field name="service_type"/>
+                <field name="start_datetime"/>
+                <field name="duration"/>
+                <field name="state"/>
+                <field name="status" decoration-warning="status == 'draft'" decoration-success="status == 'confirmed'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_medical_appointment_form" model="ir.ui.view">
+        <field name="name">appointment.appointment.form</field>
+        <field name="model">appointment.appointment</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="confirm" string="Confirm Appointment" type="object" class="oe_highlight" invisible="status != 'draft'"/>
+                    <button name="schedule_app" string="Schedule Appointment" type="object" class="oe_highlight" invisible="state != 'requested' or status == 'draft'"/>
+                    <button name="check_in" string="Check In" type="object" class="oe_highlight" invisible="state != 'scheduled'"/>
+                    <button name="check_out" string="Check Out" type="object" class="oe_highlight" invisible="state != 'checked_in'"/>
+                    <button name="cancel" string="Cancel Appointment" type="object" class="oe_highlight" invisible="state != 'scheduled'"/>
+                    <button name="reschedule" string="Reschedule" type="object" class="oe_highlight" invisible="state != 'scheduled'"/>
+                    <field name="status" widget="statusbar" nolabel="1"  invisible="status != 'draft'"/>
+                    <field name="state" widget="statusbar" nolabel="1"  invisible="status == 'draft'"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="appointment_id" string="Appointment ID"/>
+                        <h1>
+                            <div class="d-flex">
+                                <field class="text-break" name="appointment_id" placeholder="e.g. APPP/0000/00" readonly='1'/>
+                            </div>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="patient_id" readonly="state != 'requested'"/>
+                            <field name="patient_name"/>
+                            <field name="patient_identifier"/>
+                            <field name="location_id" readonly="state != 'requested'"/>
+                            <field name="date_confirmed" invisible="state!='requested'" readonly="1"/>
+                            <field name="date_scheduled" invisible="state!='scheduled'" readonly="1"/>
+                            <field name="date_checkedin" invisible="state!='checked_in'" readonly="1"/>
+                            <field name="date_completed" invisible="state!='completed'" readonly="1"/>
+                            <field name="date_cancelled" invisible="state!='cancelled'" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="granular_slot_id" readonly="state != 'requested'"/>
+                            <field name="start_datetime" readonly="granular_slot_id != False or state != 'requested'"/>
+                            <field name="duration" readonly="granular_slot_id != False or state != 'requested'"/>
+                            <field name="service_type" readonly="granular_slot_id != False or state != 'requested'"/>
+                            <field name="provider_id" readonly="state != 'requested'"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <group>
+                            <field name="note"/>
+                        </group>
+                    </group>
+                    <notebook>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View with Sidepanel Filter -->
+    <record id="view_medical_appointment_search" model="ir.ui.view">
+        <field name="name">appointment.appointment.search</field>
+        <field name="model">appointment.appointment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="patient_name"/>
+                <searchpanel>
+                    <field name="state" select="multi" icon="fa-sync" enable_counters="1" />
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+    <record id="view_medical_appointment_calendar" model="ir.ui.view">
+        <field name="name">appointment.appointment.calendar</field>
+        <field name="model">appointment.appointment</field>
+        <field name="arch" type="xml">
+            <calendar string="Appointments" date_start="start_datetime" date_stop="end_datetime" color="state" create="0" delete="0" quick_create="false">
+                <field name="patient_name"/>
+                <field name="provider_id"/>
+                <field name="location_id"/>
+                <field name="service_type"/>
+                <field name="state" filters="1"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_medical_appointment" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">appointment.appointment</field>
+        <field name="view_mode">list,form,calendar</field>
+        <field name="search_view_id" ref="view_medical_appointment_search"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="login_inherit" inherit_id="web.login" name="Login with Location">
+        <xpath expr="//div[@t-if='databases and len(databases) &gt; 1']" position="after">
+            <div class="mb-3 field-location">
+                <label for="emr_location">Location</label>
+                <select name="emr_location" t-attf-class="form-control">
+                    <t t-foreach="locations" t-as="loc">
+                        <option t-att-value="loc.id"><t t-esc="loc.name"/></option>
+                    </t>
+                </select>
+            </div>
+        </xpath>
+    </template>
+</odoo>

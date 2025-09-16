@@ -1,0 +1,1 @@
+from . import lab_test, lab_order, lab_result, patient_record

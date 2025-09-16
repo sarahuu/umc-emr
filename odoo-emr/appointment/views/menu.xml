@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_appointment" name="Appointments" sequence="10" web_icon="appointment,static/description/icon.png"/>
+    <menuitem id="menu_appointment_timeslot" name="Time Slots" parent="menu_appointment" sequence="1" />
+    <menuitem id="menu_appointment_appointment" name="Appointments" parent="menu_appointment" action="action_medical_appointment" sequence="2"/>
+
+    <menuitem id="menu_provider_schedule" name="Provider Schedules" parent="menu_appointment_timeslot" action="action_appointment_timeslot" sequence="1"/>
+    <menuitem id="menu_available_slots" name="Available Slots" parent="menu_appointment_timeslot" action="action_appointment_available_slot" sequence="2"/>
+</odoo>

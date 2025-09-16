@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_lab_order_user,lab.order.user,model_lab_order,base.group_user,1,1,1,1
+access_lab_order_line_user,lab.order.line.user,model_lab_order_line,base.group_user,1,1,1,1
+access_lab_result_user,lab.result.user,model_lab_result,base.group_user,1,1,1,1
+access_lab_result_parameter_user,lab.result.parameter.user,model_lab_result_parameter,base.group_user,1,1,1,1
+access_lab_test_type_user,lab.test.type.user,model_lab_test_type,base.group_user,1,1,1,1
+access_lab_test_parameter_user,lab.test.parameter.user,model_lab_test_parameter,base.group_user,1,1,1,1

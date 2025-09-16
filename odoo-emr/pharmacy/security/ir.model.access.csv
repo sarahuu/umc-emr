@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pharmacy_drug_user,pharmacy.drug.user,model_pharmacy_drug,base.group_user,1,1,1,1
+access_pharmacy_prescription_order_user,pharmacy.prescription.order.user,model_prescription_order,base.group_user,1,1,1,1
+access_pharmacy_prescription_order_line_user,pharmacy.prescription.order.line.user,model_prescription_order_line,base.group_user,1,1,1,1
+access_pharmacy_prescription_dispense_user,pharmacy.prescription.dispense.user,model_prescription_dispense,base.group_user,1,1,1,1
+access_pharmacy_prescription_order_wizard_user,pharmacy.prescription.order.wizard.user,model_prescription_order_wizard,base.group_user,1,1,1,1
