@@ -44,6 +44,10 @@ const Appointment = () => {
             toast.error("Please select a time slot");
             return;
         }
+        if (!note) {
+            toast.error("Please describe your need for consultation");
+            return;
+        }
 
         try {
             const { data } = await axios.post(

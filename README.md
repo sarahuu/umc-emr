@@ -1,123 +1,137 @@
-# Prescripto - Doctor Appointment Booking System
+# UMCEMR - Patient Portal
 
-Prescripto is a modern web application that facilitates seamless doctor appointment booking between patients and healthcare providers. The system is built with a React frontend and Node.js backend, providing a user-friendly interface for both patients and doctors.
+**UMCEMR (Unilag Medical Center Electronic Medical Record System)** is a modern web application designed to improve healthcare delivery at the University of Lagos Medical Center.  
+This patient-facing portal enables students, staff, and patients to **book doctor appointments, access medical records, and manage their healthcare journey** seamlessly.  
+
+The system integrates a **React frontend**, **FastAPI backend**, and **Odoo EMR** for robust record management, ensuring a smooth and secure healthcare experience.  
+
+---
 
 ## Features
 
 ### For Patients
-1. **Doctor Search and Discovery**
-   - Browse through a list of doctors by specialty
-   - View detailed doctor profiles including qualifications, experience, and fees
-   - Filter doctors based on availability and specialization
+1. **Doctor & Clinic Discovery**
+   - Browse doctors by clinic type or specialization  
+   - View detailed profiles including qualifications and consultation schedules  
+   - Filter doctors based on availability  
 
 2. **Appointment Management**
-   - Book appointments with preferred doctors
-   - View available time slots for the next 7 days
-   - Cancel or reschedule appointments
-   - Track appointment history
-   - Receive appointment confirmations
+   - Book appointments with available doctors  
+   - View real-time time slots (7-day availability)  
+   - Cancel or reschedule appointments  
+   - Receive appointment confirmations and reminders  
 
-3. **User Profile Management**
-   - Create and manage personal profiles
-   - View appointment history
-   - Update personal information
-   - Track medical records
+3. **Patient Profile & Records**
+   - Manage personal details  
+   - View past and upcoming appointments  
+   - Access basic medical record summaries (linked to Odoo EMR)  
 
-### For Doctors
-1. **Appointment Management**
-   - View and manage upcoming appointments
-   - Mark appointments as completed
-   - Cancel appointments when necessary
-   - Set availability status
+---
 
-2. **Profile Management**
-   - Create and maintain professional profiles
-   - Update qualifications and experience
-   - Set consultation fees
-   - Manage availability schedule
+### For Doctors (via EMR integration)
+1. **Appointment Handling**
+   - View and confirm upcoming appointments  
+   - Mark appointments as completed or cancelled  
+   - Manage availability status via Odoo EMR  
 
-3. **Dashboard**
-   - View appointment statistics
-   - Track patient history
-   - Monitor daily/weekly schedules
-   - Manage appointment statuses
+2. **Medical Record Access**
+   - Integrated with EMR for patient history  
+   - Update visit details directly into the EMR  
+
+---
 
 ## Technical Implementation
 
 ### Frontend
-- Built with React.js
-- Uses React Router for navigation
-- Implements responsive design with Tailwind CSS
-- Features toast notifications for user feedback
-- Context API for state management
+- **React.js** with React Router for navigation  
+- **Tailwind CSS** for responsive UI  
+- **Toast notifications** for user feedback  
+- **Context API** for state management  
 
 ### Backend
-- Node.js with Express.js
-- MongoDB for database management
-- JWT for authentication
-- RESTful API architecture
+- **FastAPI** (Python) for REST API  
+- **Odoo EMR** integration for medical records & scheduling  
+- **PostgreSQL** (via Odoo) as the main database  
+- **JWT authentication** for secure login  
 
-### Key Components
-1. **Authentication System**
-   - Secure login for both patients and doctors
-   - JWT-based authentication
-   - Protected routes and API endpoints
+---
+
+## Key Components
+1. **Authentication**
+   - Secure login for patients  
+   - JWT-based authentication and authorization  
+   - Protected API endpoints  
 
 2. **Appointment System**
-   - Real-time slot availability checking
-   - 30-minute appointment slots
-   - Conflict prevention for double bookings
-   - Appointment status tracking (pending, completed, cancelled)
+   - Real-time slot availability sync with Odoo  
+   - Prevents double-booking conflicts  
+   - Tracks appointment statuses: *pending, confirmed, completed, cancelled*  
 
 3. **Database Schema**
-   - User profiles
-   - Doctor profiles
-   - Appointment records
-   - Slot management
+   - Patient profiles  
+   - Doctor profiles (via EMR)  
+   - Appointment records  
+   - Availability slots  
+
+---
 
 ## Getting Started
 
 ### Prerequisites
-- Node.js
-- MongoDB
-- npm or yarn
+- Node.js (for frontend)  
+- Python 3.11+ (for FastAPI backend)  
+- PostgreSQL + Odoo (for EMR database)  
+- npm or yarn  
 
 ### Installation
-1. Clone the repository
-2. Install dependencies:
+1. Clone the repository:  
    ```bash
-   # Install frontend dependencies
+   git clone https://github.com/yourusername/umcemr.git
+   cd umcemr
+   ```
+
+2. Install dependencies:  
+   ```bash
+   # Frontend
    cd frontend
    npm install
 
-   # Install backend dependencies
+   # Backend
    cd ../backend
-   npm install
+   pip install -r requirements.txt
    ```
 
-3. Set up environment variables:
-   - Create `.env` files in both frontend and backend directories
-   - Configure necessary environment variables
+3. Configure environment variables:  
+   - Create `.env` files in `frontend/` and `backend/`  
+   - Define API keys, database URL, and JWT secrets  
 
-4. Start the development servers:
+4. Run the project:  
    ```bash
-   # Start backend server
+   # Start backend
    cd backend
-   npm run dev
+   uvicorn main:app --reload
 
-   # Start frontend server
+   # Start frontend
    cd frontend
    npm run dev
    ```
+
+---
 
 ## Security Features
-- Password encryption using bcrypt
-- JWT token-based authentication
-- Protected API endpoints
-- Input validation and sanitization
+- Password hashing with **bcrypt**  
+- **JWT token-based authentication**  
+- Enforced HTTPS (with SSL via Nginx/Contabo)  
+- Input validation and sanitization  
+- Role-based access control (patients vs doctors/admins)  
+
+---
 
 ## Contributing
-Contributions are welcome! Please feel free to submit a Pull Request.
+This is a final year project, but contributions and suggestions are welcome!  
+Please feel free to fork the repo and submit a Pull Request.  
+
+---
 
 ## License
-This project is licensed under the MIT License - see the LICENSE file for details. 
+This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.  
