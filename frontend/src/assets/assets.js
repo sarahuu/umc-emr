@@ -4,7 +4,7 @@ import group_profiles from './group_profiles.png'
 import profile_pic from './profile_pic.png'
 import contact_image from './contact_image.png'
 import about_image from './about_image.png'
-import logo from './logo.svg'
+import logo from './logo.png'
 import dropdown_icon from './dropdown_icon.svg'
 import menu_icon from './menu_icon.svg'
 import cross_icon from './cross_icon.png'
@@ -30,13 +30,12 @@ import doc12 from './doc12.png'
 import doc13 from './doc13.png'
 import doc14 from './doc14.png'
 import doc15 from './doc15.png'
-import Dermatologist from './Dermatologist.svg'
-import Gastroenterologist from './Gastroenterologist.svg'
-import General_physician from './General_physician.svg'
-import Gynecologist from './Gynecologist.svg'
-import Neurologist from './Neurologist.svg'
-import Pediatricians from './Pediatricians.svg'
-
+import Outpatient from './outpatient.svg'
+import Physician from './physician.svg'
+import Surgery from './surgery.svg'
+import Immunization from './immunization.svg'
+import Wellness from './wellness.svg'
+import Baby from './baby.svg'
 
 export const assets = {
     appointment_img,
@@ -55,34 +54,42 @@ export const assets = {
     dropdown_icon,
     upload_icon,
     stripe_logo,
-    razorpay_logo
+    razorpay_logo,
+    doc1
 }
 
 export const specialityData = [
     {
-        speciality: 'General physician',
-        image: General_physician
+        speciality: 'General Outpatient Clinic',
+        slug: 'general-outpatient-clinic',
+        image: Outpatient
     },
     {
-        speciality: 'Gynecologist',
-        image: Gynecologist
+        speciality: 'Surgery Clinic',
+        slug: 'surgery-clinic',
+        image: Surgery
     },
     {
-        speciality: 'Dermatologist',
-        image: Dermatologist
+        speciality: 'Physician Clinic',
+        slug: 'physician-clinic',
+        image: Physician
     },
     {
-        speciality: 'Pediatricians',
-        image: Pediatricians
+        speciality: 'Immunization Clinic',
+        slug: 'immunization-clinic',
+        image: Immunization
     },
     {
-        speciality: 'Neurologist',
-        image: Neurologist
+        speciality: 'Antenatal Clinic',
+        slug: 'antenatal-clinic',
+        image: Baby
     },
     {
-        speciality: 'Gastroenterologist',
-        image: Gastroenterologist
+        speciality: 'Wellness Clinic',
+        slug: 'wellness-clinic',
+        image: Wellness
     },
+    
 ]
 
 export const doctors = [

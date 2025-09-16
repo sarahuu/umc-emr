@@ -8,7 +8,11 @@ const Footer = () => {
 
         <div>
           <img className='mb-5 w-40' src={assets.logo} alt="" />
-          <p className='w-full md:w-2/3 text-gray-600 leading-6'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+          <p className='w-full md:w-2/3 text-gray-600 leading-6'>
+            UMCEMR (University of Lagos Medical Center Electronic Medical Records) is a digital health platform designed to improve the way patients connect with healthcare providers. 
+            It simplifies appointment scheduling, streamlines record management, and ensures that essential medical information is accessible, secure, and easy to manage. 
+          </p>
+
         </div>
 
         <div>
@@ -24,8 +28,8 @@ const Footer = () => {
         <div>
           <p className='text-xl font-medium mb-5'>GET IN TOUCH</p>
           <ul className='flex flex-col gap-2 text-gray-600'>
-            <li>+1-212-456-7890</li>
-            <li>greatstackdev@gmail.com</li>
+            <li>+2349054583218</li>
+            <li>hellourowoli@gmail.com</li>
           </ul>
         </div>
 
@@ -33,7 +37,7 @@ const Footer = () => {
 
       <div>
         <hr />
-        <p className='py-5 text-sm text-center'>Copyright 2024 @ Prescripto.com - All Right Reserved.</p>
+        <p className='py-5 text-sm text-center'>Copyright 2024 @ sarahurowoli.com - All Right Reserved.</p>
       </div>
 
     </div>
