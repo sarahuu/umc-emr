@@ -6,8 +6,6 @@ services:
     container_name: react-frontend
     env_file:
       - /etc/umcreact.env
-    ports:
-      - "3000:3000"
     networks:
       - umc-network
     restart: always
