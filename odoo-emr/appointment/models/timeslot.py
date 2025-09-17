@@ -1,6 +1,13 @@
 from odoo import models, fields, api, _
 from datetime import datetime, timedelta
 from odoo.tools import format_datetime
+import random
+from odoo.tools import populate
+from faker import Faker
+import logging
+_logger = logging.getLogger(__name__)
+fake = Faker()
+
 
 class TimeSlot(models.Model):
     _name = 'appointment.timeslot'
@@ -19,9 +26,21 @@ class TimeSlot(models.Model):
     location_id = fields.Many2one('emr.locations', string="Location", required=True)
     duration = fields.Integer(string="Duration (minutes)", required=True, default=20)
     state = fields.Selection([('draft','Draft'),('posted','Posted'),('confirmed','Confirmed')], default='draft')
-    service_type = fields.Many2one('medical.service', string="Clinic Type", required=True, ondelete="cascade")
+    # service_type = fields.Many2one('medical.service', string="Clinic Type", required=True, ondelete="cascade", domain="[('id', 'in', provider_id.service_ids.ids)]" if provider_id else [])
     available_slot_ids = fields.One2many('appointment.available.slot', 'slot_id', string="Granular Slots")
     active = fields.Boolean(default=True)
+
+    service_type = fields.Many2one('medical.service', string="Clinic Type", required=True, ondelete="cascade",domain="[('id', 'in', allowed_service_type_ids)]")
+    allowed_service_type_ids = fields.Many2many('medical.service',compute='_compute_allowed_service_types',string="Allowed Service Types")
+
+    @api.depends('provider_id')
+    def _compute_allowed_service_types(self):
+        for record in self:
+            if record.provider_id and record.provider_id.service_ids:
+                # Assuming provider_id.service_type is a Many2many field
+                record.allowed_service_type_ids = record.provider_id.service_ids.ids
+            else:
+                record.allowed_service_type_ids = False
 
     @api.model
     def create(self, vals):
@@ -119,6 +138,48 @@ class TimeSlot(models.Model):
     def _onchange_provider_id(self):
         return {'domain': {'service_type': [('id', 'in', self.provider_id.service_ids.ids)] if self.provider_id else []}}
 
+# ------------------ POPULATE CONFIG ------------------
+    _populate_sizes = {"small": 10, "medium": 100, "large": 1000}
+
+    def _populate_factories(self):
+        providers = self.env['emr.provider'].search([], limit=50).ids
+        locations = self.env['emr.locations'].search([], limit=20).ids
+        services = self.env['medical.service'].search([], limit=10).ids
+
+        def random_date():
+            today = datetime.today().date()
+            return today + timedelta(days=random.randint(1, 30))
+
+        def random_time():
+            return random.choice([8.0, 9.0, 10.0, 11.0, 13.0, 14.0, 15.0])
+
+        return [
+            ("date", lambda: random_date()),
+            ("start_time", lambda: random_time()),
+            ("end_time", lambda: random_time() + 1.0),
+            ("provider_id", lambda: random.choice(providers) if providers else False),
+            ("location_id", lambda: random.choice(locations) if locations else False),
+            ("service_type", lambda: random.choice(services) if services else False),
+            ("duration", lambda: random.choice([15, 20, 30])),
+            ("state", lambda: random.choice(['draft', 'posted', 'confirmed'])),
+            ("active", lambda: random.choice([True, False])),
+        ]
+
+    def _populate(self, size):
+        records = super()._populate(size)
+
+        for rec in records:
+            # Ensure valid times
+            if rec.start_time >= rec.end_time:
+                rec.end_time = rec.start_time + 1.0
+                rec._compute_datetimes()
+
+            # Auto-generate granular slots for confirmed ones
+            if rec.state == "confirmed":
+                rec.generate_granular_slots()
+
+        return records
+
 
 class AppointmentAvailableSlot(models.Model):
     _name = "appointment.available.slot"
@@ -177,6 +238,33 @@ class AppointmentAvailableSlot(models.Model):
         ])
         expired_slots.action_archive()
 
+
+    # ------------------ POPULATE CONFIG ------------------
+    _populate_sizes = {"small": 20, "medium": 200, "large": 2000}
+
+    def _populate_factories(self):
+        timeslots = self.env['appointment.timeslot'].search([('state','=','confirmed')], limit=50).ids
+
+        def get_random_timeslot_data():
+            # Generate consistent start and end times
+            start = datetime.now() + timedelta(
+                days=random.randint(1, 7), 
+                hours=random.randint(8, 16),
+                minutes=random.choice([0, 15, 30, 45])
+            )
+            duration = random.choice([15, 20, 30])
+            end = start + timedelta(minutes=duration)
+            
+            return {
+                'slot_id': random.choice(timeslots) if timeslots else False,
+                'start_datetime': start,
+                'end_datetime': end,
+                'is_booked': random.choice([True, False]),
+                'active': True
+            }
+        return [
+            (None, lambda **kwargs: get_random_timeslot_data()),
+        ]
 
 class EMRProvider(models.Model):
     _inherit = "emr.provider"

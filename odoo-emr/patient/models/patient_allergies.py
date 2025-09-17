@@ -1,4 +1,7 @@
 from odoo import models, fields, api, _
+from odoo.tools import populate
+from datetime import date, timedelta
+import random
 
 class PatientAllergies(models.Model):
     _name = 'patient.allergies'
@@ -22,3 +25,38 @@ class PatientAllergies(models.Model):
     _sql_constraints = [
         ('uniq_patient_allergen', 'unique(patient_id, allergen_id)', 'This allergen is already recorded for the patient!'),
     ]
+
+    _populate_sizes = {"small": 10, "medium": 50, "large": 500}
+
+    def _populate_factories(self):
+        Patient = self.env['patient.record']
+        Allergen = self.env['medical.allergen']
+        Reaction = self.env['medical.reactions']
+        User = self.env['res.users']
+
+        # Grab available IDs for relations
+        patient_ids = Patient.search([], limit=200).ids or [None]
+        allergen_ids = Allergen.search([], limit=50).ids or [None]
+        reaction_ids = Reaction.search([], limit=50).ids or []
+        user_ids = [self.env.user.id]
+
+        return [
+            ("patient_id", populate.randomize(patient_ids)),
+            ("allergen_id", populate.randomize(allergen_ids)),
+            ("severity", populate.randomize(['mild', 'moderate', 'severe'])),
+            ("onset_date", lambda: date.today() - timedelta(days=random.randint(1, 2000))),
+            ("recorded_by", populate.randomize(user_ids)),
+            ("comments", populate.iterate(["No issues", "Patient reports reaction", "Requires monitoring", "Critical case"])),
+            # reactions must be set after record creation
+        ]
+
+    def _populate(self, size):
+        records = super()._populate(size)
+
+        # Add Many2many reaction_ids
+        Reaction = self.env['medical.reactions']
+        reaction_ids = Reaction.search([], limit=50).ids
+        if reaction_ids:
+            for rec in records:
+                rec.reaction_ids = [(6, 0, random.sample(reaction_ids, k=random.randint(1, min(3, len(reaction_ids)))))]
+        return records

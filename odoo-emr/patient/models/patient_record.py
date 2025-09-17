@@ -1,5 +1,11 @@
 from odoo import models, fields, api, _
-from datetime import date
+import random
+from odoo.tools import populate
+from faker import Faker
+import logging
+_logger = logging.getLogger(__name__)
+fake = Faker()
+
 
 class PatientRecord(models.Model):
     _name = 'patient.record'
@@ -91,8 +97,8 @@ class PatientRecord(models.Model):
     
     @api.depends('vitals_ids','biometrics_ids')
     def _compute_vitals(self):
-        latest_vital = self.vitals_ids.sorted(key='create_date', reverse=True)[:1]
-        latest_biometric = self.biometrics_ids.sorted(key='create_date', reverse=True)[:1]
+        latest_vital = self.vitals_ids.sorted(key='recorded_at', reverse=True)[:1]
+        latest_biometric = self.biometrics_ids.sorted(key='recorded_at', reverse=True)[:1]
         for rec in self:
             rec.blood_pressure = latest_vital.blood_pressure
             rec.respiratory_rate = latest_vital.respiratory_rate
@@ -101,6 +107,24 @@ class PatientRecord(models.Model):
             rec.temperature = latest_vital.temperature
             rec.weight = latest_biometric.weight
             rec.height = latest_biometric.height
+
+     # --- populate config ---
+    _populate_sizes = {"small": 50, "medium": 500, "large": 5000}
+
+    def _populate_factories(self):
+        return [
+            ("member_type", lambda: random.choice(['student', 'staff'])),
+            ("demographic_id", lambda: self.env['patient.demographic'].populate('small')[0].id)
+        ]
+
+    def _populate_dependencies(self):
+        # ensure demographics are populated first
+        return ['patient.demographic']
+
+    def _populate(self, size):
+        records = super()._populate(size)
+        _logger.info("Populated %s PatientRecord(s)", len(records))
+        return records
 
 
 class PatientRecordDemographic(models.Model):
@@ -184,29 +208,8 @@ class PatientRecordDemographic(models.Model):
             raise models.ValidationError(_("Failed to create patient demographic: %s") % str(e))
         return record
     
-    # def write(self, vals):
-    #     demographic_fields = [
-    #         'first_name', 'last_name', 'email', 'phone','mobile','title','street','street2','city','state_id','zip','country_id','gender', 'date_of_birth',
-    #         'marital_status', 'other_name', 'next_of_kin_name', 'next_of_kin_relationship',
-    #         'next_of_kin_phone', 'is_deceased'
-    #     ]
-    #     student_fields = ['matric_number', 'department_id', 'faculty_id', 'level']
-    #     staff_fields = ['staff_number', 'employment_type', 'designation']
-    #     res = super(PatientRecordDemographic, self).write(vals)
-    #     demographic_vals = {field: vals.get(field) for field in demographic_fields if field in vals}
-    #     if demographic_vals and self.demographic_id:
-    #         self.demographic_id.write(demographic_vals)
-    #     if self.member_type == 'student' and self.demographic_id.student_demographic_id:
-    #         student_vals = {field: vals.get(field) for field in student_fields if field in vals}
-    #         if student_vals:
-    #             self.demographic_id.student_demographic_id.write(student_vals)
-    #     if self.member_type == 'staff' and self.demographic_id.staff_demographic_id:
-    #         staff_vals = {field: vals.get(field) for field in staff_fields if field in vals}
-    #         if staff_vals:
-    #             self.demographic_id.staff_demographic_id.write(staff_vals)
-    #     return res
-    
     @api.onchange('first_name', 'last_name')
     def _onchange_name(self):
         for record in self:
             record.name = f"{record.first_name or ''} {record.last_name or ''}".strip() or 'Unnamed'
+
