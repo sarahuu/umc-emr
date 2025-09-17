@@ -1,10 +1,6 @@
 from odoo import models, fields, api, _
 import random
-from odoo.tools import populate
-from faker import Faker
 import logging
-_logger = logging.getLogger(__name__)
-fake = Faker()
 
 
 class PatientRecord(models.Model):
@@ -107,24 +103,6 @@ class PatientRecord(models.Model):
             rec.temperature = latest_vital.temperature
             rec.weight = latest_biometric.weight
             rec.height = latest_biometric.height
-
-     # --- populate config ---
-    _populate_sizes = {"small": 50, "medium": 500, "large": 5000}
-
-    def _populate_factories(self):
-        return [
-            ("member_type", lambda: random.choice(['student', 'staff'])),
-            ("demographic_id", lambda: self.env['patient.demographic'].populate('small')[0].id)
-        ]
-
-    def _populate_dependencies(self):
-        # ensure demographics are populated first
-        return ['patient.demographic']
-
-    def _populate(self, size):
-        records = super()._populate(size)
-        _logger.info("Populated %s PatientRecord(s)", len(records))
-        return records
 
 
 class PatientRecordDemographic(models.Model):

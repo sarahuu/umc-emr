@@ -1,13 +1,8 @@
 from odoo import models, fields, api, _
 from datetime import date
 import random
-from odoo.tools import populate
-from faker import Faker
 import logging
 _logger = logging.getLogger(__name__)
-fake = Faker()
-
-
 
 
 
@@ -25,22 +20,6 @@ class PatientDemographicStudent(models.Model):
         ('uniq_matric_number', 'unique(matric_number)', 'Matric Number must be unique!')
     ]
 
-    _populate_sizes = {"small": 50, "medium": 500, "large": 5000}
-
-    def _populate_factories(self):
-        departments = self.env['university.departments'].search([])
-        levels = ['100','200','300','400','500','600']
-        return [
-            ("matric_number", lambda: f"M{random.randint(1000,9999)}"),
-            ("faculty_id", lambda: random.choice(self.env['university.faculties'].search([])).id if self.env['university.faculties'].search([]) else False),
-            ("department_id", lambda: random.choice(departments).id if departments else False),
-            ("level", lambda: random.choice(levels))
-        ]
-
-    def _populate(self, size):
-        records = super()._populate(size)
-        _logger.info("Populated %s PatientDemographicStudent(s)", len(records))
-        return records
 
     
 class PatientDemographicStaff(models.Model):
@@ -56,21 +35,6 @@ class PatientDemographicStaff(models.Model):
         ('uniq_staff_number', 'unique(staff_number)', 'Staff ID must be unique!')
     ]
 
-    # Populate configuration
-    _populate_sizes = {"small": 50, "medium": 500, "large": 5000}
-
-    def _populate_factories(self):
-        designations = ['Lecturer', 'Senior Lecturer', 'Professor', 'Administrator', 'Technician', 'Clerk']
-        return [
-            ("staff_number", lambda: f"S{random.randint(1000,9999)}"),
-            ("employment_type", lambda: random.choice(['academic','non_academic'])),
-            ("designation", lambda: random.choice(designations))
-        ]
-
-    def _populate(self, size):
-        records = super()._populate(size)
-        _logger.info("Populated %s PatientDemographicStaff(s)", len(records))
-        return records
 
 
 class PatientDemographic(models.Model):
@@ -183,26 +147,3 @@ class PatientDemographic(models.Model):
         else:
             self.staff_demographic_id = False
 
-
-    _populate_sizes = {"small": 50, "medium": 500, "large": 5000}
-
-    def _populate_factories(self):
-        return [
-            ("first_name", lambda: fake.first_name()),
-            ("last_name", lambda: fake.last_name()),
-            ("gender", lambda: random.choice(['male','female','other','unknown'])),
-            ("date_of_birth", lambda: fake.date_of_birth(minimum_age=1, maximum_age=90)),
-            ("member_type", lambda: random.choice(['student','staff'])),
-            ("partner_id", lambda: self.env['res.partner'].create({'name': fake.name()}).id),
-            # Link student/staff automatically
-            ("student_demographic_id", lambda: self.env['patient.demographic.student'].populate('small')[0].id if random.random() < 0.5 else False),
-            ("staff_demographic_id", lambda: self.env['patient.demographic.staff'].populate('small')[0].id if random.random() < 0.5 else False),
-        ]
-
-    def _populate_dependencies(self):
-        return ['res.partner', 'patient.demographic.student', 'patient.demographic.staff']
-
-    def _populate(self, size):
-        records = super()._populate(size)
-        _logger.info("Populated %s PatientDemographic(s)", len(records))
-        return records

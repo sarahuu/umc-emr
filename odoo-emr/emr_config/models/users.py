@@ -1,10 +1,7 @@
 from odoo import models, fields, api
 import random
-from odoo.tools import populate
-from faker import Faker
 import logging
 _logger = logging.getLogger(__name__)
-fake = Faker()
 
 
 class EMRProvider(models.Model):
@@ -86,23 +83,4 @@ class EMRProvider(models.Model):
                 })
         return doctors
     
-    _populate_sizes = {"small": 10, "medium": 100, "large": 1000}
-
-    def _populate_factories(self):
-        specialties = self.env['provider.specialty'].search([], limit=50).ids
-        services = self.env['medical.service'].search([], limit=50).ids
-
-        return [
-            ("first_name", populate.random_firstnames()),
-            ("last_name", populate.random_lastnames()),
-            ("email", populate.email()),
-            ("phone", populate.phonenumbers()),
-            ("license_number", populate.seq("LIC-{:05d}")),  # unique sequence
-            ("about", populate.lorem()),
-            ("specialty_ids", populate.cartesian(specialties, min_size=1, max_size=3)),
-            ("service_ids", populate.cartesian(services, min_size=1, max_size=2)),
-            ("active", populate.randomize([True, False])),
-        ]
-
-
 
