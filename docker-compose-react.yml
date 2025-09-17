@@ -7,7 +7,7 @@ services:
     env_file:
       - /etc/umcreact.env
     ports:
-      - "8002:8002"
+      - "8002:80"
     networks:
       - umc-network
     restart: always
