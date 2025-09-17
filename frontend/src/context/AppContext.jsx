@@ -9,7 +9,7 @@ export const AppContext = createContext()
 const AppContextProvider = (props) => {
 
     const currencySymbol = 'N'
-    const backendUrl = import.meta.env.VITE_BACKEND_URL
+    const backendUrl = "https://umcapi.sarahurowoli.xyz"
     const navigate = useNavigate()
     const [doctors, setDoctors] = useState([])
     const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '')
