@@ -65,6 +65,7 @@ class LabOrderLine(models.Model):
         if self.state != 'draft':
             raise models.ValidationError(_("You can't confirm a non-draft order"))
         self.write({'state':'requested'})
+        self._ensure_result()
 
     def accept_order(self):
         if self.state == 'requested':

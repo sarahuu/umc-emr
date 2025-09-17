@@ -16,7 +16,8 @@
                         <page string="Parameter Results">
                             <field name="parameter_result_ids">
                                 <list editable="bottom" edit="state in ['accepted','requested']">
-                                    <field name="parameter_id" />
+                                    <field name="test_type_id"/>
+                                    <field name="parameter_id" domain="[('test_type_id','=',test_type_id)]"/>
                                     <field name="parameter_type"/>
                                     <field name="value_numeric" invisible="parameter_type != 'numeric'"/>
                                     <field name="value_text" invisible="parameter_type != 'text'"/>

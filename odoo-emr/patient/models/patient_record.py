@@ -93,8 +93,8 @@ class PatientRecord(models.Model):
     
     @api.depends('vitals_ids','biometrics_ids')
     def _compute_vitals(self):
-        latest_vital = self.vitals_ids.sorted(key='recorded_at', reverse=True)[:1]
-        latest_biometric = self.biometrics_ids.sorted(key='recorded_at', reverse=True)[:1]
+        latest_vital = self.env['patient.vitals'].search([('patient_id', '=', self.id)],order="recorded_at desc",limit=1)
+        latest_biometric = self.env['patient.biometrics'].search([('patient_id', '=', self.id)],order="recorded_at desc",limit=1)
         for rec in self:
             rec.blood_pressure = latest_vital.blood_pressure
             rec.respiratory_rate = latest_vital.respiratory_rate

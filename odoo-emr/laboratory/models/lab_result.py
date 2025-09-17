@@ -42,7 +42,7 @@ class LabResultParameter(models.Model):
         ("rejected", "Rejected"),
         ("completed", "Completed"),
     ], string="Status", related="result_id.state")
-    parameter_id = fields.Many2one("lab.test.parameter", string="Parameter", required=True, domain="[('test_type_id','=',test_type_id)]")
+    parameter_id = fields.Many2one("lab.test.parameter", string="Parameter", required=True)
     parameter_type = fields.Selection(related="parameter_id.parameter_type")
     value_numeric = fields.Float("Numeric Value")
     value_text = fields.Char("Text Value")
