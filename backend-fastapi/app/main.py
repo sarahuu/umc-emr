@@ -42,7 +42,7 @@ async def general_exception_handler(request: Request, exc: Exception):
 origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
-    "http://umc-portal.sarahurowoli.xyz"
+    "https://umc-portal.sarahurowoli.xyz"
 ]
 app.add_middleware(
     CORSMiddleware,
