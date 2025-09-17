@@ -14,4 +14,4 @@ COPY ./app /code/app
 EXPOSE 8001
 
 # Run FastAPI with uvicorn
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8001"]
+CMD ["uvicorn", "app.main:app","--workers","4", "--host", "0.0.0.0", "--port", "8001"]
